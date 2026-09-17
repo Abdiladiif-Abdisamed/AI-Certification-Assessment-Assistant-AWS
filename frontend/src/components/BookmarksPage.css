@@ -1,0 +1,243 @@
+/* src/components/BookmarksPage.css
+   Saved questions list. Tags are neutral; green marks state only. */
+
+.bookmarks-page {
+  gap: 24px;
+}
+
+.bookmarks-top-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* ============================================================
+   List panel
+   ============================================================ */
+
+.bookmark-list-section {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px 22px;
+}
+
+.bookmark-list-section > h2 {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.bookmark-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bookmark-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bookmark-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+}
+
+.bookmark-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.bookmark-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.category-tag,
+.cert-tag,
+.status-badge {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--neutral-soft);
+  color: var(--neutral-soft-fg);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.category-tag {
+  border-color: var(--border-strong);
+  background: var(--surface-1);
+  color: var(--text);
+  font-weight: 500;
+}
+
+.status-badge.badge-correct {
+  border-color: var(--success-border);
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.status-badge.badge-incorrect {
+  border-color: var(--danger-border);
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.remove-bookmark-btn {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-subtle);
+  background: var(--surface-1);
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.remove-bookmark-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.6;
+}
+
+.remove-bookmark-btn:hover {
+  border-color: var(--danger-border);
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.bookmark-question {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.bookmark-options {
+  display: grid;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.bookmark-options p {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.bookmark-options p span {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.bookmark-note {
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.bookmark-answers-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12.5px;
+}
+
+.bookmark-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.practice-again-btn {
+  min-height: 34px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--primary-fg);
+  background: var(--primary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 140ms ease;
+}
+
+.practice-again-btn:hover {
+  background: var(--primary-hover);
+}
+
+/* Empty state */
+.empty-bookmarks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 52px 20px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.empty-bookmarks svg {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 6px;
+  color: var(--text-subtle);
+  stroke-width: 1.5;
+}
+
+.empty-bookmarks h3 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 760px) {
+  .bookmarks-top-stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .bookmarks-top-stats-grid { grid-template-columns: 1fr; }
+  .bookmark-list-section { padding: 18px; }
+}

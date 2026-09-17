@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-certification-assistant"
+version = "0.3.0"
+description = "Grounded RAG and assessment intelligence for certification practice"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "openai>=1.109,<3",
+  "faiss-cpu>=1.12,<2",
+  "numpy>=1.26,<3",
+  "python-dotenv>=1.0,<2",
+  "pydantic>=2.7,<3",
+  "fastapi>=0.116,<1",
+  "uvicorn[standard]>=0.35,<1",
+  "sqlalchemy>=2.0,<3",
+  "pyjwt>=2.10,<3",
+  "pwdlib[argon2]>=0.2,<1",
+  "email-validator>=2.2,<3",
+]
+
+[project.optional-dependencies]
+notebook = ["jupyter>=1.0,<2", "nbformat>=5.10,<6"]
+test = ["pytest>=8,<9", "httpx>=0.28,<1"]
+
+[project.scripts]
+cert-rag = "certification_assistant.rag.pipeline:_main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"

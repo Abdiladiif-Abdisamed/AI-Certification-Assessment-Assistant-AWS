@@ -1,0 +1,34 @@
+{
+  "certification": {
+    "id": "generative-ai-leader",
+    "name": "Generative AI Leader",
+    "provider": "Google Cloud",
+    "status": "active"
+  },
+  "official_sources": [
+    "https://cloud.google.com/learn/certification/generative-ai-leader"
+  ],
+  "domains": [
+    {
+      "name": "Fundamentals of generative AI",
+      "weight": "~30%",
+      "topics": []
+    },
+    {
+      "name": "Google Cloud generative AI offerings",
+      "weight": "~35%",
+      "topics": []
+    },
+    {
+      "name": "Techniques to improve generative AI model output",
+      "weight": "~20%",
+      "topics": []
+    },
+    {
+      "name": "Business strategies for successful generative AI solutions",
+      "weight": "~15%",
+      "topics": []
+    }
+  ],
+  "note": "Detailed topics should be extracted from the official exam guide before RAG use."
+}

@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Certification Exam Assistant — Project Documentation</title>
+  <style>
+    :root {
+      --ink: #152033;
+      --muted: #5f6f85;
+      --line: #dbe3ef;
+      --soft: #f5f7fb;
+      --paper: #ffffff;
+      --navy: #111936;
+      --purple: #6c4cf1;
+      --pink: #eb5c91;
+      --cyan: #22a6b3;
+      --green: #1b8f68;
+      --orange: #d97706;
+      --red: #c2415b;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: #e9edf4; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      font-size: 10.2pt;
+      line-height: 1.48;
+    }
+
+    @page { size: A4; margin: 14mm 15mm 16mm; }
+    @media print {
+      html, body { background: #fff; }
+      a { color: inherit; text-decoration: none; }
+      .page-break { break-before: page; }
+      .avoid-break, table, .card, .member-card, .diagram, pre { break-inside: avoid; }
+    }
+
+    main { max-width: 210mm; margin: 0 auto; }
+    .page { padding: 2mm 0; }
+    .cover {
+      min-height: 267mm;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18mm 14mm 13mm;
+      color: #fff;
+      background:
+        radial-gradient(circle at 88% 13%, rgba(235,92,145,.92) 0 7%, transparent 22%),
+        radial-gradient(circle at 15% 88%, rgba(34,166,179,.65) 0 9%, transparent 28%),
+        linear-gradient(145deg, #0b1025 0%, #18204a 47%, #4c33b8 100%);
+    }
+    .cover::after {
+      content: "";
+      position: absolute;
+      width: 155mm;
+      height: 155mm;
+      right: -75mm;
+      bottom: -50mm;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      box-shadow: 0 0 0 18mm rgba(255,255,255,.035), 0 0 0 38mm rgba(255,255,255,.025);
+    }
+    .cover-top, .cover-bottom, .cover-content { position: relative; z-index: 1; }
+    .brand-row { display: flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: .03em; }
+    .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: linear-gradient(135deg, #8b5cf6, #f05d91); font-size: 18px; }
+    .kicker { margin: 0 0 12px; color: #cbd5ff; font-size: 10pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .cover h1 { max-width: 155mm; margin: 0; color: #fff; font-size: 33pt; line-height: 1.04; letter-spacing: -.04em; }
+    .cover-subtitle { max-width: 145mm; margin: 18px 0 0; color: #e5e9ff; font-size: 14pt; line-height: 1.5; }
+    .cover-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .cover-badges span { padding: 7px 11px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; background: rgba(255,255,255,.08); font-size: 8.5pt; }
+    .cover-meta { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.24); }
+    .cover-meta small { display: block; margin-bottom: 3px; color: #cbd5ff; text-transform: uppercase; letter-spacing: .1em; }
+    .cover-meta strong { font-size: 10.5pt; }
+
+    h1, h2, h3, h4 { color: var(--navy); line-height: 1.18; }
+    h2 { margin: 0 0 10px; font-size: 21pt; letter-spacing: -.025em; }
+    h3 { margin: 18px 0 8px; font-size: 13.5pt; }
+    h4 { margin: 12px 0 5px; font-size: 10.5pt; }
+    p { margin: 6px 0 10px; }
+    ul, ol { margin: 7px 0 12px; padding-left: 20px; }
+    li { margin: 3px 0; }
+    code { padding: 1px 4px; color: #4c2cb5; border-radius: 4px; background: #f0edff; font-family: Consolas, monospace; font-size: 8.7pt; }
+    pre { margin: 10px 0 14px; padding: 12px 14px; overflow: hidden; color: #e8ebff; border-radius: 10px; background: #111827; font: 8pt/1.5 Consolas, monospace; white-space: pre-wrap; }
+    a { color: #5136cb; }
+
+    .section-label { margin: 0 0 6px; color: var(--purple); font-size: 8.5pt; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .lead { max-width: 175mm; margin: 0 0 16px; color: #3f4e63; font-size: 11.2pt; }
+    .rule { height: 3px; width: 42px; margin: 8px 0 16px; border-radius: 3px; background: linear-gradient(90deg, var(--purple), var(--pink)); }
+    .muted { color: var(--muted); }
+    .small { font-size: 8.6pt; }
+    .note { padding: 10px 12px; border-left: 4px solid var(--purple); border-radius: 0 8px 8px 0; background: #f5f2ff; }
+    .warning { border-left-color: var(--orange); background: #fff8e8; }
+    .success { border-left-color: var(--green); background: #ebf8f3; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 14px 0 18px; }
+    .stat { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(180deg, #fff, #f8f9fd); }
+    .stat strong { display: block; color: var(--purple); font-size: 22pt; line-height: 1; }
+    .stat span { display: block; margin-top: 6px; color: var(--muted); font-size: 8.3pt; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .card { padding: 13px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+    .card h3, .card h4 { margin-top: 0; }
+    .card-accent { border-top: 4px solid var(--purple); }
+
+    .toc { columns: 2; column-gap: 28px; margin-top: 14px; }
+    .toc ol { margin: 0; padding-left: 20px; }
+    .toc li { margin: 8px 0; break-inside: avoid; }
+    .toc a { color: var(--ink); text-decoration: none; }
+
+    .diagram { margin: 14px 0 18px; padding: 14px; border: 1px solid #d8ddf0; border-radius: 14px; background: linear-gradient(135deg, #f8f9ff, #f5f9fc); }
+    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; align-items: stretch; }
+    .flow-step { position: relative; padding: 12px 9px; border-radius: 10px; color: #fff; background: var(--navy); text-align: center; font-size: 8.2pt; }
+    .flow-step:nth-child(2) { background: #2f3d83; }
+    .flow-step:nth-child(3) { background: var(--purple); }
+    .flow-step:nth-child(4) { background: #a6418a; }
+    .flow-step:nth-child(5) { background: var(--cyan); }
+    .flow-step strong { display: block; margin-bottom: 4px; font-size: 9pt; }
+    .flow-caption { margin: 10px 0 0; color: var(--muted); font-size: 8.2pt; text-align: center; }
+
+    table { width: 100%; margin: 10px 0 16px; border-collapse: collapse; font-size: 8.2pt; }
+    th { padding: 8px 8px; color: #fff; background: var(--navy); text-align: left; vertical-align: top; }
+    td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    tbody tr:nth-child(even) { background: #f8f9fc; }
+    .status-ready { color: var(--green); font-weight: 700; }
+    .status-blocked { color: var(--orange); font-weight: 700; }
+
+    .member-card { margin: 12px 0 16px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+    .member-head { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; padding: 13px 15px; color: #fff; background: linear-gradient(110deg, var(--navy), #30216e); }
+    .member-num { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: rgba(255,255,255,.14); font-size: 15pt; font-weight: 800; }
+    .member-head h3 { margin: 0; color: #fff; font-size: 14pt; }
+    .member-head p { margin: 2px 0 0; color: #dfe4ff; font-size: 8.4pt; }
+    .name-slot { padding: 5px 9px; border: 1px dashed rgba(255,255,255,.55); border-radius: 7px; font-size: 8pt; }
+    .member-body { display: grid; grid-template-columns: 1.15fr .85fr; gap: 15px; padding: 14px 15px 15px; }
+    .ownership { padding: 9px 10px; border-radius: 9px; background: var(--soft); }
+    .ownership code { display: block; margin: 3px 0; overflow-wrap: anywhere; }
+
+    .checklist { list-style: none; padding-left: 0; }
+    .checklist li { position: relative; padding-left: 20px; }
+    .checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 900; }
+    .footer-note { margin-top: 20px; padding-top: 10px; color: var(--muted); border-top: 1px solid var(--line); font-size: 7.8pt; }
+  </style>
+</head>
+<body>
+<main>
+  <section class="cover">
+    <div class="cover-top brand-row"><div class="brand-mark">AI</div><div>AI Certification Exam Assistant</div></div>
+    <div class="cover-content">
+      <p class="kicker">Technical Documentation & Team Collaboration Guide</p>
+      <h1>Grounded certification practice from official knowledge to learner readiness</h1>
+      <p class="cover-subtitle">Architecture, implementation, quality controls, project runbook, and a clear five-member contribution model.</p>
+      <div class="cover-badges"><span>Python & FastAPI</span><span>OpenAI Responses API</span><span>FAISS RAG</span><span>SQLite</span><span>React 19 & Vite</span></div>
+    </div>
+    <div class="cover-bottom cover-meta">
+      <div><small>Document version</small><strong>1.0</strong></div>
+      <div><small>Project version</small><strong>0.3.0 MVP</strong></div>
+      <div><small>Prepared</small><strong>28 August 2026</strong></div>
+    </div>
+  </section>
+
+  <section class="page page-break" id="contents">
+    <p class="section-label">Document map</p><h2>Table of contents</h2><div class="rule"></div>
+    <div class="toc">
+      <ol>
+        <li><a href="#overview">Executive overview</a></li>
+        <li><a href="#scope">Goals, scope, and boundaries</a></li>
+        <li><a href="#architecture">System architecture</a></li>
+        <li><a href="#data">Certification data layer</a></li>
+        <li><a href="#rag">RAG and vector retrieval</a></li>
+        <li><a href="#ai">OpenAI AI Engine</a></li>
+        <li><a href="#analytics">Scoring and learner analytics</a></li>
+        <li><a href="#backend">Backend API and application database</a></li>
+        <li><a href="#frontend">Frontend experience</a></li>
+        <li><a href="#quality">Reliability and safety controls</a></li>
+        <li><a href="#testing">Testing evidence</a></li>
+        <li><a href="#team">Five-member work allocation</a></li>
+        <li><a href="#collaboration">Collaboration and handoff model</a></li>
+        <li><a href="#runbook">Local setup and runbook</a></li>
+        <li><a href="#demo">Quick team demo sharing</a></li>
+        <li><a href="#roadmap">Limitations and next roadmap</a></li>
+        <li><a href="#appendix-a">Appendix A: folder map</a></li>
+        <li><a href="#appendix-b">Appendix B: API reference</a></li>
+        <li><a href="#appendix-c">Appendix C: environment configuration</a></li>
+      </ol>
+    </div>
+    <div class="note" style="margin-top:24px"><strong>Team-name placeholders:</strong> the responsibility section uses Member 1–5. Replace each placeholder with the real contributor name before submission or presentation.</div>
+  </section>
+
+  <section class="page page-break" id="overview">
+    <p class="section-label">01 — Executive overview</p><h2>What the project does</h2><div class="rule"></div>
+    <p class="lead">The AI Certification Exam Assistant is a grounded learning system that converts repository-controlled certification knowledge into new practice-only multiple-choice questions, evaluates learner answers, detects weak areas, recommends official resources, builds a study plan, and calculates readiness through transparent rules.</p>
+    <div class="stats">
+      <div class="stat"><strong>5</strong><span>Certification JSON source files</span></div>
+      <div class="stat"><strong>38</strong><span>Prepared semantic RAG chunks</span></div>
+      <div class="stat"><strong>4</strong><span>Certification-scoped FAISS indexes</span></div>
+      <div class="stat"><strong>30</strong><span>Passing Python tests</span></div>
+    </div>
+    <div class="diagram">
+      <div class="flow">
+        <div class="flow-step"><strong>Official JSON</strong>Certification source of truth</div>
+        <div class="flow-step"><strong>RAG</strong>Clean, chunk, embed, retrieve</div>
+        <div class="flow-step"><strong>OpenAI</strong>Structured grounded questions</div>
+        <div class="flow-step"><strong>FastAPI</strong>Auth, orchestration, persistence</div>
+        <div class="flow-step"><strong>React</strong>Assessment and learner insights</div>
+      </div>
+      <p class="flow-caption">Core outcome: official certification knowledge → semantic retrieval → grounded practice → deterministic evaluation → personalized preparation.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card card-accent"><h3>Current production-candidate corpus</h3><p><strong>AWS Certified AI Practitioner (AIF-C01)</strong> contains five domains and fourteen detailed, source-linked topic/task chunks. It is the only corpus currently enabled for live question generation.</p></div>
+      <div class="card card-accent"><h3>Reliability-first behavior</h3><p>When retrieved content is incomplete, the system returns <code>insufficient_context</code> or blocks generation. It does not fill knowledge gaps with internet content or unsupported model knowledge.</p></div>
+    </div>
+  </section>
+
+  <section class="page page-break" id="scope">
+    <p class="section-label">02 — Scope</p><h2>Goals, users, and boundaries</h2><div class="rule"></div>
+    <div class="grid-2">
+      <div class="card"><h3>Primary goals</h3><ul class="checklist"><li>Generate new practice questions from retrieved official content.</li><li>Keep certification retrieval isolated before vector search.</li><li>Return machine-readable, validated question JSON.</li><li>Score MCQs without using an LLM.</li><li>Turn results into weak areas, official recommendations, study plans, and readiness.</li><li>Expose the proven AI foundation through a modular API and responsive learner interface.</li></ul></div>
+      <div class="card"><h3>Explicit content policy</h3><ul><li>Certification JSON files are the source of truth.</li><li>No leaked or real exam questions are used.</li><li>No random web content is added at runtime.</li><li>Generated items are always marked <code>practice_only=true</code>.</li><li>Source chunk IDs and official URLs must be preserved.</li><li>Unsupported certification corpora remain disabled.</li></ul></div>
+    </div>
+    <h3>Implemented MVP capabilities</h3>
+    <table><thead><tr><th>Area</th><th>Implemented capability</th></tr></thead><tbody>
+      <tr><td>Identity</td><td>Registration, login, signed bearer token, user-isolated records, Argon2 password hashing.</td></tr>
+      <tr><td>Knowledge</td><td>Dynamic JSON discovery, conservative cleaning, topic-aware chunking, OpenAI embeddings, FAISS persistence.</td></tr>
+      <tr><td>Assessment</td><td>Difficulty and count configuration, grounded MCQ generation, hidden answer keys until submission.</td></tr>
+      <tr><td>Analytics</td><td>Deterministic scoring, domain/topic performance, weak areas, recommendations, study plan, readiness.</td></tr>
+      <tr><td>Learner UI</td><td>Dashboard, assessment, results, sources, weak areas, bookmarks, history, settings, help, responsive navigation.</td></tr>
+    </tbody></table>
+    <div class="note warning"><strong>Deferred:</strong> production deployment, managed database migrations, production secrets, rate limiting, token revocation, cloud monitoring, backups, and full browser end-to-end automation remain future work.</div>
+  </section>
+
+  <section class="page page-break" id="architecture">
+    <p class="section-label">03 — Architecture</p><h2>End-to-end system design</h2><div class="rule"></div>
+    <div class="diagram">
+      <svg viewBox="0 0 900 440" width="100%" role="img" aria-label="System architecture diagram">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1"><stop stop-color="#6c4cf1"/><stop offset="1" stop-color="#eb5c91"/></linearGradient>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/></marker>
+        </defs>
+        <rect x="15" y="30" width="160" height="72" rx="14" fill="#111936"/><text x="95" y="59" text-anchor="middle" fill="white" font-size="18" font-weight="700">Certification JSON</text><text x="95" y="82" text-anchor="middle" fill="#cbd5ff" font-size="13">certifications/*.json</text>
+        <rect x="225" y="30" width="170" height="72" rx="14" fill="#2f3d83"/><text x="310" y="59" text-anchor="middle" fill="white" font-size="18" font-weight="700">Ingestion & RAG</text><text x="310" y="82" text-anchor="middle" fill="#dfe4ff" font-size="13">chunks + embeddings</text>
+        <rect x="445" y="30" width="170" height="72" rx="14" fill="#6c4cf1"/><text x="530" y="59" text-anchor="middle" fill="white" font-size="18" font-weight="700">FAISS Retrieval</text><text x="530" y="82" text-anchor="middle" fill="#f0edff" font-size="13">certification-scoped</text>
+        <rect x="665" y="30" width="220" height="72" rx="14" fill="url(#g1)"/><text x="775" y="59" text-anchor="middle" fill="white" font-size="18" font-weight="700">OpenAI AI Engine</text><text x="775" y="82" text-anchor="middle" fill="#fff1f7" font-size="13">Structured Outputs + judge</text>
+        <path d="M175 66H225M395 66H445M615 66H665" stroke="#94a3b8" stroke-width="4" marker-end="url(#arrow)"/>
+        <rect x="445" y="174" width="220" height="78" rx="14" fill="#111936"/><text x="555" y="204" text-anchor="middle" fill="white" font-size="18" font-weight="700">FastAPI Service Layer</text><text x="555" y="228" text-anchor="middle" fill="#cbd5ff" font-size="13">validation + orchestration</text>
+        <path d="M775 102V150H610V174" fill="none" stroke="#94a3b8" stroke-width="4"/>
+        <rect x="125" y="315" width="220" height="78" rx="14" fill="#1b8f68"/><text x="235" y="345" text-anchor="middle" fill="white" font-size="18" font-weight="700">SQLite</text><text x="235" y="369" text-anchor="middle" fill="#def7ec" font-size="13">users + assessments + bookmarks</text>
+        <rect x="555" y="315" width="220" height="78" rx="14" fill="#22a6b3"/><text x="665" y="345" text-anchor="middle" fill="white" font-size="18" font-weight="700">React Learner UI</text><text x="665" y="369" text-anchor="middle" fill="#e1fbff" font-size="13">responsive web experience</text>
+        <path d="M510 252V285H235V315M600 252V285H665V315" fill="none" stroke="#94a3b8" stroke-width="4"/>
+      </svg>
+    </div>
+    <h3>Runtime request sequence</h3>
+    <ol>
+      <li>A signed-in learner selects certification, difficulty, question count, and study-plan days.</li>
+      <li>FastAPI checks that the selected corpus is detailed enough for question generation.</li>
+      <li>The retriever selects the certification-specific FAISS index <strong>before</strong> embedding and searching the query.</li>
+      <li>Retrieved chunks are sent to the AI Engine, which generates a strict Pydantic question batch.</li>
+      <li>Deterministic and semantic grounding checks accept the batch or reject/regenerate it.</li>
+      <li>FastAPI stores the assessment while keeping correct answers and explanations server-side.</li>
+      <li>After submission, Python computes the score and all personalized outputs; SQLite stores the completed result.</li>
+      <li>The React client renders results, sources, weak topics, plan, readiness, bookmarks, and history.</li>
+    </ol>
+  </section>
+
+  <section class="page page-break" id="data">
+    <p class="section-label">04 — Data layer</p><h2>Certification knowledge as the source of truth</h2><div class="rule"></div>
+    <p>The loader dynamically discovers every <code>certifications/*.json</code> file. A certification contains identity metadata, domains, topics/tasks, subtopics, content, domain weight, and official source metadata. Source content is retained rather than silently rewritten.</p>
+    <table><thead><tr><th>Certification</th><th>Domains</th><th>Topics</th><th>Chunks</th><th>Detailed</th><th>Generation status</th></tr></thead><tbody>
+      <tr><td>AWS Certified AI Practitioner</td><td>5</td><td>14</td><td>14</td><td>14</td><td class="status-ready">Enabled</td></tr>
+      <tr><td>Microsoft Azure AI Fundamentals</td><td>2</td><td>7</td><td>7</td><td>0</td><td class="status-blocked">Blocked by quality guard</td></tr>
+      <tr><td>IBM AI Engineering Professional Certificate</td><td>4</td><td>10</td><td>10</td><td>0</td><td class="status-blocked">Blocked by quality guard</td></tr>
+      <tr><td>DeepLearning.AI Programs</td><td>2</td><td>7</td><td>7</td><td>0</td><td class="status-blocked">Blocked by quality guard</td></tr>
+      <tr><td>Google Generative AI Leader</td><td>4</td><td>0</td><td>0</td><td>0</td><td class="status-blocked">Requires structured detailed topics</td></tr>
+    </tbody></table>
+    <h3>Metadata preserved through the pipeline</h3>
+    <div class="grid-3">
+      <div class="card"><h4>Certification</h4><p><code>certification_id</code><br/><code>certification</code><br/><code>provider</code></p></div>
+      <div class="card"><h4>Knowledge structure</h4><p><code>domain</code><br/><code>domain_weight</code><br/><code>topic</code><br/><code>subtopics</code></p></div>
+      <div class="card"><h4>Provenance</h4><p><code>source_title</code><br/><code>source_url</code><br/><code>source_type</code><br/><code>source_urls</code></p></div>
+    </div>
+    <h3>Cleaning rules</h3>
+    <ul><li>Remove empty or unusable records.</li><li>Normalize redundant whitespace and line endings.</li><li>Remove malformed control and replacement characters.</li><li>Deduplicate exact content records and repeated sources.</li><li>Preserve factual meaning, certification identity, topic structure, and official URLs.</li></ul>
+  </section>
+
+  <section class="page page-break" id="rag">
+    <p class="section-label">05 — Retrieval</p><h2>RAG and vector database pipeline</h2><div class="rule"></div>
+    <h3>Topic-aware chunking</h3>
+    <p>One certification topic/task remains one semantic unit. Only unusually long topic content is split, using paragraph or sentence boundaries. The default maximum is approximately 3,500 characters with a small 250-character overlap. Each chunk receives a stable SHA-256-derived ID and retains all metadata.</p>
+    <div class="note"><strong>Why this fits certification knowledge:</strong> exam guides are already organized into domains, tasks, and subtopics. Preserving those units avoids mixing unrelated objectives and gives each generated question a precise topic and source trail.</div>
+    <h3>Embedding and index design</h3>
+    <table><tbody>
+      <tr><th>Embedding provider</th><td>OpenAI Python SDK</td><th>Model</th><td><code>text-embedding-3-small</code></td></tr>
+      <tr><th>Vector dimension</th><td>1,536</td><th>Metric</th><td>Cosine similarity through L2-normalized inner product</td></tr>
+      <tr><th>FAISS index</th><td><code>IndexFlatIP</code></td><th>Persistence</th><td>Global index, metadata manifest, and per-certification indexes</td></tr>
+    </tbody></table>
+    <h3>Pre-search certification isolation</h3>
+    <pre>retrieve_context(query, certification_id="aif-c01", top_k=5)
+    ↓
+Resolve vector_store/by_certification/aif-c01.faiss
+    ↓
+Embed the query with the same stored embedding model
+    ↓
+Search only AWS positions and return text, domain, topic, source, score</pre>
+    <p>An unknown certification ID is rejected before the query embedding call. An AWS selection therefore cannot retrieve Microsoft, IBM, Google, or DeepLearning.AI chunks.</p>
+    <h3>Persisted RAG artifacts</h3>
+    <ul><li><code>data/rag_chunks.json</code> — cleaned, validated semantic chunks.</li><li><code>vector_store/index.faiss</code> — global inspection index.</li><li><code>vector_store/metadata.json</code> — model, dimensions, chunk metadata, index mappings.</li><li><code>vector_store/by_certification/*.faiss</code> — certification-scoped search indexes.</li></ul>
+  </section>
+
+  <section class="page page-break" id="ai">
+    <p class="section-label">06 — Intelligence layer</p><h2>OpenAI AI Engine</h2><div class="rule"></div>
+    <p>The AI Engine uses the OpenAI Responses API and Pydantic Structured Outputs. The generation model is configurable with <code>OPENAI_GENERATION_MODEL</code> and currently defaults to <code>gpt-5-mini</code>.</p>
+    <div class="grid-2">
+      <div class="card"><h3>OpenAI-assisted functions</h3><ul><li>Grounded practice-question generation.</li><li>Closed-book semantic grounding review.</li><li>Optional explanation wording for weak areas.</li><li>Optional recommendation wording.</li><li>Optional study-plan wording.</li><li>Optional readiness explanation.</li></ul></div>
+      <div class="card"><h3>Deterministic functions</h3><ul><li>Answer and assessment scoring.</li><li>Domain and topic accuracy.</li><li>Weak-topic thresholds and priority.</li><li>Allowed source URL enforcement.</li><li>Study-plan topic/day structure.</li><li>Readiness score and classification.</li></ul></div>
+    </div>
+    <h3>Question output contract</h3>
+    <pre>{
+  "question": "...",
+  "options": {"A":"...", "B":"...", "C":"...", "D":"..."},
+  "correct_answer": "A",
+  "explanation": "...",
+  "difficulty": "medium",
+  "certification": "AWS Certified AI Practitioner",
+  "domain": "...",
+  "topic": "...",
+  "source_chunk_ids": ["chunk_..."],
+  "source_urls": ["https://official-source.example/..."],
+  "practice_only": true
+}</pre>
+    <h3>Generation acceptance gates</h3>
+    <ol><li>Context must contain detailed explanatory content and an official URL.</li><li>Every context record must match the requested certification.</li><li>Exactly four distinct options and the requested question count are required.</li><li>Domain, topic, chunk IDs, and URLs must exist in cited retrieved records.</li><li>Every option, the answer, and explanation must pass deterministic grounding checks.</li><li>A separate model call performs strict semantic entailment review.</li><li>A failed batch may be regenerated with validator feedback, up to three attempts.</li><li>If a reliable batch cannot be produced, the API returns an error instead of unsupported questions.</li></ol>
+  </section>
+
+  <section class="page page-break" id="analytics">
+    <p class="section-label">07 — Learner analytics</p><h2>Scoring, weak areas, recommendations, study plan, and readiness</h2><div class="rule"></div>
+    <table><thead><tr><th>Output</th><th>How it is calculated</th><th>LLM authority</th></tr></thead><tbody>
+      <tr><td>Assessment score</td><td>Known answer key compared with submitted A/B/C/D selections. Missing answers are incorrect.</td><td>None</td></tr>
+      <tr><td>Domain/topic performance</td><td>Total, correct, incorrect, and accuracy grouped in Python.</td><td>None</td></tr>
+      <tr><td>Weak areas</td><td>Topics below 80% require review; below 50% is high priority by default.</td><td>May explain, cannot change scores</td></tr>
+      <tr><td>Recommendations</td><td>Weak topics mapped only to official URLs present in supplied resources.</td><td>May improve wording within allowlists</td></tr>
+      <tr><td>Study plan</td><td>High-priority and lowest-accuracy topics ordered and cycled across available days.</td><td>Cannot change topics, days, priorities, or URLs</td></tr>
+      <tr><td>Readiness</td><td>≥80 Ready; 60–79 Nearly Ready; &lt;60 Needs Improvement. Thresholds are configurable.</td><td>May explain, cannot classify</td></tr>
+    </tbody></table>
+    <div class="diagram"><div class="flow">
+      <div class="flow-step"><strong>Submitted answers</strong>A/B/C/D</div>
+      <div class="flow-step"><strong>Python score</strong>Question + topic + domain</div>
+      <div class="flow-step"><strong>Weak areas</strong>Threshold priorities</div>
+      <div class="flow-step"><strong>Action plan</strong>Official recommendations</div>
+      <div class="flow-step"><strong>Readiness</strong>Transparent classification</div>
+    </div></div>
+  </section>
+
+  <section class="page page-break" id="backend">
+    <p class="section-label">08 — Application services</p><h2>FastAPI backend and SQLite database</h2><div class="rule"></div>
+    <p>FastAPI is a thin orchestration and persistence layer over the tested <code>certification_assistant</code> package. AI rules are not duplicated in route handlers. Pydantic request/response schemas reject unexpected fields and invalid ranges.</p>
+    <h3>Backend responsibilities</h3>
+    <div class="grid-3"><div class="card"><h4>API</h4><p>Authentication, certification catalog, assessment generation/submission, result views, dashboard, bookmarks, and history.</p></div><div class="card"><h4>Security</h4><p>Argon2 hashes, JWT HS256 bearer tokens, active-user validation, CORS configuration, and ownership filters.</p></div><div class="card"><h4>Orchestration</h4><p>Corpus readiness guard, RAG call, AI generation, deterministic analytics, persistence, and public answer-key filtering.</p></div></div>
+    <h3>Application database schema</h3>
+    <table><thead><tr><th>Table</th><th>Important fields</th><th>Relationship and purpose</th></tr></thead><tbody>
+      <tr><td><code>users</code></td><td>id, email, full_name, hashed_password, is_active, created_at</td><td>Unique email identity. One user owns many assessments and bookmarks.</td></tr>
+      <tr><td><code>assessments</code></td><td>id, user_id, certification, difficulty, questions_json, answers_json, result_json, weak_areas_json, study_plan_json, readiness_json, status</td><td>Stores the complete learner workflow. Foreign key to users with cascade delete.</td></tr>
+      <tr><td><code>bookmarks</code></td><td>id, user_id, question_key, certification_id, question_json, note</td><td>User-owned saved practice questions. Unique per user/question pair.</td></tr>
+    </tbody></table>
+    <div class="note"><strong>Two different databases serve different purposes:</strong> FAISS stores vector knowledge for retrieval; SQLite stores accounts and learner activity. They should not be presented as the same database component.</div>
+    <h3>Privacy of assessment answers</h3>
+    <p>Before submission, the public assessment schema excludes <code>correct_answer</code> and <code>explanation</code>. These fields remain in the server-side assessment record and appear only in the post-submission question review.</p>
+  </section>
+
+  <section class="page page-break" id="frontend">
+    <p class="section-label">09 — User experience</p><h2>React frontend and API integration</h2><div class="rule"></div>
+    <p>The learner interface uses React 19, Vite, native Fetch, Lucide icons, semantic form controls, theme persistence, hash-based page state, loading and error states, and a shared API client with bearer-token handling.</p>
+    <table><thead><tr><th>Page</th><th>Main learner capability</th></tr></thead><tbody>
+      <tr><td>Authentication</td><td>Register or sign in; show/hide password; clear inline API feedback.</td></tr>
+      <tr><td>Dashboard</td><td>Readiness summary, score metrics, certification readiness, and assessment configuration.</td></tr>
+      <tr><td>Assessment</td><td>Question navigation, progress, answer selection, bookmarking, and submission.</td></tr>
+      <tr><td>Results</td><td>Score, readiness, domain/topic results, answer review, explanations, citations, and recommendations.</td></tr>
+      <tr><td>Weak Areas</td><td>Priority-filtered topics derived from deterministic accuracy.</td></tr>
+      <tr><td>Study Plan</td><td>Day-by-day activities and links to official resources.</td></tr>
+      <tr><td>History & Bookmarks</td><td>Persistent attempts, result reopening, saved practice questions, and removal.</td></tr>
+      <tr><td>Settings & Help</td><td>Theme choice, account summary, and project-accurate guidance.</td></tr>
+    </tbody></table>
+    <h3>Responsive behavior</h3>
+    <ul><li>Viewport metadata is configured for mobile browsers.</li><li>The fixed desktop sidebar becomes an accessible drawer below 900px.</li><li>Dashboard, assessment, results, settings, and study-plan grids collapse at page-specific breakpoints.</li><li>Buttons and key controls use touch-friendly sizing.</li><li>Horizontal overflow is contained or made intentionally scrollable for dense history/filter views.</li><li>Reduced-motion preferences disable nonessential transitions.</li></ul>
+    <h3>Single-URL demo proxy</h3>
+    <p>The frontend calls relative <code>/api</code>. Vite proxies those requests to <code>http://127.0.0.1:8000</code>, enabling a VS Code public tunnel on port 5173 without separately exposing backend port 8000.</p>
+  </section>
+
+  <section class="page page-break" id="quality">
+    <p class="section-label">10 — Trust</p><h2>Reliability, grounding, and safety controls</h2><div class="rule"></div>
+    <div class="grid-2">
+      <div class="card"><h3>Knowledge controls</h3><ul><li>Repository JSON is the only knowledge source.</li><li>Certification-scoped search occurs before retrieval.</li><li>Embedding model compatibility is checked against the index manifest.</li><li>Generation is disabled for topic-label-only corpora.</li><li>Official URLs are allowlisted from retrieved content.</li></ul></div>
+      <div class="card"><h3>Question controls</h3><ul><li>Strict Pydantic Structured Output.</li><li>Exact four-option contract.</li><li>Practice-only flag enforcement.</li><li>Duplicate question detection.</li><li>Option, answer, and explanation grounding.</li><li>Independent semantic audit and safe failure.</li></ul></div>
+      <div class="card"><h3>Application controls</h3><ul><li>Argon2 password hashes.</li><li>Signed expiring bearer tokens.</li><li>Assessment ownership checked by user ID.</li><li>Correct answers hidden pre-submission.</li><li>Environment-based secrets and thresholds.</li></ul></div>
+      <div class="card"><h3>Transparency controls</h3><ul><li>Source chunk IDs and URLs preserved.</li><li>Deterministic scores and readiness.</li><li>Corpus readiness warning displayed.</li><li>Results can be reviewed question by question.</li><li>Unsupported generation returns an explicit error.</li></ul></div>
+    </div>
+    <div class="note warning"><strong>Important quality statement:</strong> passing automated checks is a quality gate, not a guarantee that every future model output is correct. Grounding metrics, rejected batches, and user feedback should continue to be monitored.</div>
+  </section>
+
+  <section class="page page-break" id="testing">
+    <p class="section-label">11 — Verification</p><h2>Testing evidence and acceptance criteria</h2><div class="rule"></div>
+    <div class="stats"><div class="stat"><strong>30</strong><span>Python tests passed on 28 Aug 2026</span></div><div class="stat"><strong>0</strong><span>Python test failures</span></div><div class="stat"><strong>Pass</strong><span>Frontend Oxlint</span></div><div class="stat"><strong>Pass</strong><span>Vite production build</span></div></div>
+    <h3>Automated test coverage</h3>
+    <table><thead><tr><th>Test area</th><th>What is verified</th></tr></thead><tbody>
+      <tr><td>Ingestion and chunks</td><td>Dynamic loading, metadata retention, cleaning, semantic chunking, stable outputs.</td></tr>
+      <tr><td>Retrieval</td><td>Certification filtering before search, expected result structure, unknown-ID rejection.</td></tr>
+      <tr><td>AI contracts</td><td>Structured question schema, insufficient-context guard, source and option grounding, unsupported output rejection.</td></tr>
+      <tr><td>Evaluation</td><td>Correct/incorrect totals, percentage, domain/topic breakdown, missing-answer behavior.</td></tr>
+      <tr><td>Personalization</td><td>Weak-area priority, official recommendation URLs, study-plan constraints, readiness boundaries.</td></tr>
+      <tr><td>Backend integration</td><td>Registration/login, catalog, assessment lifecycle, answer-key privacy, ownership, dashboard, history, bookmarks.</td></tr>
+      <tr><td>Frontend quality</td><td>Static lint rules and successful optimized production build.</td></tr>
+    </tbody></table>
+    <h3>Verification commands</h3>
+    <pre># From project root
+python -m pytest backend/tests tests -q
+
+# From frontend/
+npm run lint
+npm run build</pre>
+    <p class="small muted">The verified environment reported 30 passed tests and one third-party deprecation warning from the FastAPI/Starlette test client dependency path; it did not represent a test failure.</p>
+  </section>
+
+  <section class="page page-break" id="team">
+    <p class="section-label">12 — Team collaboration</p><h2>Five-member work allocation</h2><div class="rule"></div>
+    <p class="lead">The ownership model below gives every contributor a distinct technical responsibility, visible folder ownership, measurable deliverables, and a defined handoff to the next subsystem.</p>
+
+    <article class="member-card">
+      <div class="member-head"><div class="member-num">1</div><div><h3>Data Collection & Certification Content</h3><p>Official knowledge acquisition, structure, provenance, and content readiness</p></div><div class="name-slot">Name: __________________</div></div>
+      <div class="member-body"><div><h4>Primary work</h4><ul><li>Collect and structure certification knowledge only from approved official sources.</li><li>Maintain certification identity, provider, domains, weights, topics, subtopics, detailed content, and source metadata.</li><li>Paraphrase faithfully without adding leaked questions or unsupported facts.</li><li>Identify incomplete certifications and document content gaps.</li><li>Validate JSON syntax and content-level completeness before ingestion.</li></ul><h4>Deliverables</h4><p>Source-of-truth JSON files, source register, data-quality checklist, corpus status notes, and update history.</p></div><div class="ownership"><h4>Folder ownership</h4><code>certifications/</code><code>certifications/aws_ai_practitioner.json</code><code>certifications/*.json</code><p class="small"><strong>Shared review:</strong> <code>README.md</code> data section and notebook source examples.</p><h4>Handoff</h4><p class="small">Provides valid hierarchical JSON to Member 2. Accepts content-gap reports from Members 2 and 3.</p></div></div>
+    </article>
+
+    <article class="member-card">
+      <div class="member-head"><div class="member-num">2</div><div><h3>RAG Pipeline & Vector Database</h3><p>Ingestion, cleaning, chunking, embeddings, FAISS persistence, and retrieval</p></div><div class="name-slot">Name: __________________</div></div>
+      <div class="member-body"><div><h4>Primary work</h4><ul><li>Load all certification JSON files dynamically.</li><li>Normalize content without changing factual meaning.</li><li>Create metadata-rich topic-aware chunks and stable chunk IDs.</li><li>Generate OpenAI embeddings and build global plus per-certification FAISS indexes.</li><li>Implement certification-filtered retrieval and similarity scoring.</li><li>Maintain the corpus quality report and retrieval tests.</li></ul><h4>Deliverables</h4><p>Prepared chunks, vector-store manifest, FAISS indexes, retriever API, retrieval evaluation, and reproducible preparation commands.</p></div><div class="ownership"><h4>Folder ownership</h4><code>src/certification_assistant/ingestion/</code><code>src/certification_assistant/rag/</code><code>data/rag_chunks.json</code><code>vector_store/</code><code>notebooks/01_rag_pipeline.ipynb</code><code>scripts/create_notebook.py</code><h4>Handoff</h4><p class="small">Supplies typed retrieved chunks to Member 3 and corpus-readiness metadata to Member 4.</p></div></div>
+    </article>
+
+    <article class="member-card">
+      <div class="member-head"><div class="member-num">3</div><div><h3>OpenAI & AI Engine</h3><p>Structured question generation, grounding gates, and learning intelligence</p></div><div class="name-slot">Name: __________________</div></div>
+      <div class="member-body"><div><h4>Primary work</h4><ul><li>Design the retrieved-context-only question prompt.</li><li>Use the Responses API with Pydantic Structured Outputs.</li><li>Validate certification, domain, topic, source IDs, URLs, options, answer, and explanation.</li><li>Run semantic grounding review and reject unsupported batches.</li><li>Implement deterministic scoring, weak-area detection, official recommendations, study plans, and readiness.</li><li>Define strict internal schemas and AI failure behavior.</li></ul><h4>Deliverables</h4><p>AI Engine functions, Pydantic contracts, grounding validator, deterministic analytics, and AI-specific tests.</p></div><div class="ownership"><h4>Folder ownership</h4><code>src/certification_assistant/ai/</code><code>src/certification_assistant/assessment/</code><code>src/certification_assistant/schemas.py</code><code>scripts/run_live_pipeline.py</code><code>tests/test_ai_engine.py</code><h4>Handoff</h4><p class="small">Exposes stable Python service functions and schemas to Member 4. Reports content insufficiency to Members 1 and 2.</p></div></div>
+    </article>
+
+    <article class="member-card">
+      <div class="member-head"><div class="member-num">4</div><div><h3>Backend API & Application Database</h3><p>FastAPI contracts, authentication, SQLite persistence, and service orchestration</p></div><div class="name-slot">Name: __________________</div></div>
+      <div class="member-body"><div><h4>Primary work</h4><ul><li>Create FastAPI routes and Pydantic API request/response models.</li><li>Implement registration, login, password hashing, signed tokens, and current-user dependency.</li><li>Design SQLAlchemy users, assessments, and bookmarks models.</li><li>Persist complete assessment analytics and isolate all user-owned records.</li><li>Hide answer keys until submission and map AI failures to safe API responses.</li><li>Build API integration tests and maintain environment-backed configuration.</li></ul><h4>Deliverables</h4><p>Runnable API, OpenAPI documentation, local SQLite schema, auth flow, assessment lifecycle, persistence, and backend test suite.</p></div><div class="ownership"><h4>Folder ownership</h4><code>backend/app/api/</code><code>backend/app/core/</code><code>backend/app/models/</code><code>backend/app/schemas/</code><code>backend/app/services/</code><code>backend/tests/</code><code>data/assistant.db (runtime)</code><h4>Handoff</h4><p class="small">Publishes the documented <code>/api</code> contract consumed by Member 5. Calls Member 2 and 3 modules rather than duplicating them.</p></div></div>
+    </article>
+
+    <article class="member-card">
+      <div class="member-head"><div class="member-num">5</div><div><h3>Frontend Design & API Integration</h3><p>Responsive learner experience, accessible interaction, and backend consumption</p></div><div class="name-slot">Name: __________________</div></div>
+      <div class="member-body"><div><h4>Primary work</h4><ul><li>Build registration/login, dashboard, assessment, results, weak areas, plan, history, bookmarks, settings, and help pages.</li><li>Create reusable responsive layout and theme styling.</li><li>Integrate the FastAPI contract through one shared API client.</li><li>Store bearer tokens and theme preferences in the browser.</li><li>Implement loading, timeout, empty, error, progress, and success states.</li><li>Maintain mobile navigation, accessibility labels, source links, and frontend verification.</li></ul><h4>Deliverables</h4><p>React/Vite web application, responsive CSS, API integration, single-URL demo proxy, lint-clean source, and production build.</p></div><div class="ownership"><h4>Folder ownership</h4><code>frontend/src/components/</code><code>frontend/src/services/api.js</code><code>frontend/src/App.jsx</code><code>frontend/src/*.css</code><code>frontend/public/</code><code>frontend/vite.config.js</code><h4>Handoff</h4><p class="small">Consumes Member 4's API schemas and reports integration errors. Uses sources and analytics supplied by Members 2 and 3 through the backend.</p></div></div>
+    </article>
+  </section>
+
+  <section class="page page-break" id="collaboration">
+    <p class="section-label">13 — Handoffs</p><h2>How the five members collaborate</h2><div class="rule"></div>
+    <div class="diagram"><div class="flow">
+      <div class="flow-step"><strong>Member 1</strong>Official structured content</div>
+      <div class="flow-step"><strong>Member 2</strong>Validated retrieved evidence</div>
+      <div class="flow-step"><strong>Member 3</strong>Grounded AI outputs</div>
+      <div class="flow-step"><strong>Member 4</strong>Secure API + persistence</div>
+      <div class="flow-step"><strong>Member 5</strong>Learner experience</div>
+    </div></div>
+    <h3>Responsibility matrix</h3>
+    <table><thead><tr><th>Work item</th><th>Accountable owner</th><th>Required reviewers</th><th>Acceptance evidence</th></tr></thead><tbody>
+      <tr><td>Certification source update</td><td>Member 1</td><td>Members 2 and 3</td><td>Valid JSON, official URLs, detailed content, no unsupported claims</td></tr>
+      <tr><td>Chunk/index rebuild</td><td>Member 2</td><td>Members 1 and 3</td><td>Preparation report, ready manifest, scoped retrieval tests</td></tr>
+      <tr><td>Prompt/schema change</td><td>Member 3</td><td>Members 2 and 4</td><td>Structured output tests, grounding tests, live smoke example</td></tr>
+      <tr><td>API/database change</td><td>Member 4</td><td>Members 3 and 5</td><td>OpenAPI contract, migration/schema note, API tests</td></tr>
+      <tr><td>Frontend workflow change</td><td>Member 5</td><td>Member 4</td><td>Lint, build, responsive and error-state review</td></tr>
+      <tr><td>End-to-end release candidate</td><td>Shared team</td><td>All members</td><td>Python suite, frontend checks, live grounded assessment, manual demo checklist</td></tr>
+    </tbody></table>
+    <h3>Recommended collaboration workflow</h3>
+    <ol><li>Create a short issue with owner, inputs, expected output, and acceptance tests.</li><li>Change only the owning subsystem unless an integration contract also requires an agreed update.</li><li>Keep JSON schemas, Pydantic schemas, and frontend API expectations synchronized.</li><li>Run local subsystem tests before requesting review.</li><li>Use a small integration fixture for routine work; use live OpenAI only for defined smoke tests.</li><li>Document corpus changes and vector-index rebuilds together.</li><li>Do not commit <code>.env</code>, API keys, local SQLite records, or temporary demo credentials.</li></ol>
+  </section>
+
+  <section class="page page-break" id="runbook">
+    <p class="section-label">14 — Operations</p><h2>Local setup and runbook</h2><div class="rule"></div>
+    <h3>Prerequisites</h3><p>Python 3.11+, Node.js/npm, an OpenAI API key, and internet access for embedding and generation calls.</p>
+    <h3>Install Python dependencies</h3>
+    <pre>cd C:\Users\jamaa\Documents\ai-certification-assistant
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install -e ".[notebook,test]"
+Copy-Item .env.example .env</pre>
+    <h3>Prepare and embed certification data</h3>
+    <pre>cert-rag prepare
+cert-rag embed</pre>
+    <h3>Run backend and frontend</h3>
+    <div class="grid-2"><div class="card"><h4>Terminal 1 — FastAPI</h4><pre>python -m uvicorn backend.app.main:app \
+  --reload --host 127.0.0.1 --port 8000</pre><p class="small">Health: <code>http://127.0.0.1:8000/health</code><br/>Docs: <code>http://127.0.0.1:8000/docs</code></p></div><div class="card"><h4>Terminal 2 — React</h4><pre>cd frontend
+npm install
+npm run dev</pre><p class="small">Application: <code>http://127.0.0.1:5173</code></p></div></div>
+    <h3>Live AI smoke test</h3><pre>python scripts\run_live_pipeline.py --questions 3 --days 5</pre>
+    <div class="note warning"><strong>Generation time:</strong> assessment creation includes retrieval, structured question generation, deterministic validation, a second semantic-review call, and possible regeneration. A grounded batch can therefore take noticeably longer than a normal API request.</div>
+  </section>
+
+  <section class="page page-break" id="demo">
+    <p class="section-label">15 — Demonstration</p><h2>Quick team demo through one public URL</h2><div class="rule"></div>
+    <p>For a temporary team demonstration, keep FastAPI on local port 8000 and expose only Vite port 5173. The Vite proxy forwards browser requests from <code>/api</code> to the local backend.</p>
+    <ol><li>Start backend on <code>127.0.0.1:8000</code>.</li><li>Start frontend on <code>127.0.0.1:5173</code>.</li><li>In VS Code, open the <strong>Ports</strong> view.</li><li>Forward port <strong>5173</strong>.</li><li>Set Port Visibility to <strong>Public</strong>.</li><li>Copy the generated <code>https://...devtunnels.ms</code> address and share it with the team.</li><li>Stop forwarding after the demonstration.</li></ol>
+    <h3>What every tester can do</h3>
+    <ul class="checklist"><li>Create a separate learner account.</li><li>Generate an AWS AIF-C01 practice assessment.</li><li>Submit answers and receive an isolated result.</li><li>Review sources, weak areas, recommendations, study plan, readiness, history, and bookmarks.</li><li>Open the same public HTTPS URL from desktop, tablet, Android, or iPhone.</li></ul>
+    <div class="note warning"><strong>Demo limitations:</strong> the host laptop and both servers must stay running; anyone with the public link can reach the application; all OpenAI usage is charged to the configured project key; simultaneous live generations can be slower or encounter provider rate limits. This tunnel is not a production deployment.</div>
+  </section>
+
+  <section class="page page-break" id="roadmap">
+    <p class="section-label">16 — Next steps</p><h2>Current limitations and recommended roadmap</h2><div class="rule"></div>
+    <table><thead><tr><th>Priority</th><th>Next improvement</th><th>Reason</th><th>Likely owners</th></tr></thead><tbody>
+      <tr><td>1</td><td>Background assessment jobs with progress states</td><td>Prevent long synchronous requests and improve mobile/demo experience.</td><td>Members 4 and 5</td></tr>
+      <tr><td>2</td><td>Regenerate only failed questions</td><td>Reduce latency and OpenAI cost while keeping strict validation.</td><td>Member 3</td></tr>
+      <tr><td>3</td><td>Validated question pool and duplicate tracking</td><td>Serve common assessments faster and avoid repeated learner items.</td><td>Members 3 and 4</td></tr>
+      <tr><td>4</td><td>Expand official detailed corpora</td><td>Enable Microsoft, IBM, Google, and DeepLearning.AI without lowering grounding quality.</td><td>Members 1 and 2</td></tr>
+      <tr><td>5</td><td>Domain-weighted and adaptive assessments</td><td>Align question coverage with official blueprints and learner performance.</td><td>Members 2, 3, and 5</td></tr>
+      <tr><td>6</td><td>Production security and deployment</td><td>Managed secrets, HTTPS, rate limiting, backups, observability, migrations, and scalable persistence.</td><td>Member 4 with team review</td></tr>
+      <tr><td>7</td><td>Browser E2E automation</td><td>Verify complete flows across desktop and mobile breakpoints.</td><td>Members 4 and 5</td></tr>
+    </tbody></table>
+    <div class="note success"><strong>Recommended release order:</strong> instrument generation timing → add background progress → retry only failed questions → expand content → deploy with production security. This preserves the project's reliability-first design.</div>
+  </section>
+
+  <section class="page page-break" id="appendix-a">
+    <p class="section-label">Appendix A</p><h2>Folder and module map</h2><div class="rule"></div>
+    <pre>ai-certification-assistant/
+├── certifications/                  # Member 1: official source-of-truth JSON
+├── src/certification_assistant/
+│   ├── ingestion/                   # Member 2: loading and cleaning
+│   ├── rag/                         # Member 2: chunks, embeddings, FAISS, retrieval
+│   ├── ai/                          # Member 3: OpenAI generation and grounding
+│   ├── assessment/                  # Member 3: deterministic learning analytics
+│   └── schemas.py                   # Member 3: internal typed contracts
+├── backend/app/
+│   ├── api/                         # Member 4: FastAPI routes
+│   ├── core/                        # Member 4: config, DB, security
+│   ├── models/                      # Member 4: SQLAlchemy entities
+│   ├── schemas/                     # Member 4: public API contracts
+│   └── services/                    # Member 4: orchestration
+├── frontend/
+│   ├── src/components/              # Member 5: learner pages and responsive CSS
+│   ├── src/services/api.js          # Member 5: API client
+│   └── vite.config.js               # Member 5: development and demo proxy
+├── data/
+│   ├── rag_chunks.json              # Member 2: generated retrieval artifact
+│   └── assistant.db                 # Member 4: local runtime database
+├── vector_store/                    # Member 2: FAISS and manifest artifacts
+├── notebooks/                       # Member 2/3: evaluation and demonstration
+├── scripts/                         # Member 2/3: reproducible pipelines
+├── tests/                           # Member 2/3: AI and RAG tests
+└── backend/tests/                   # Member 4: API integration tests</pre>
+  </section>
+
+  <section class="page page-break" id="appendix-b">
+    <p class="section-label">Appendix B</p><h2>API route reference</h2><div class="rule"></div>
+    <table><thead><tr><th>Method and route</th><th>Authentication</th><th>Purpose</th></tr></thead><tbody>
+      <tr><td><code>GET /health</code></td><td>No</td><td>Service health check.</td></tr>
+      <tr><td><code>POST /api/auth/register</code></td><td>No</td><td>Create user and return bearer token.</td></tr>
+      <tr><td><code>POST /api/auth/login</code></td><td>No</td><td>Verify password and return bearer token.</td></tr>
+      <tr><td><code>GET /api/auth/me</code></td><td>Yes</td><td>Restore the current user session.</td></tr>
+      <tr><td><code>GET /api/certifications</code></td><td>No</td><td>List catalog, chunk counts, and generation readiness.</td></tr>
+      <tr><td><code>GET /api/dashboard</code></td><td>Yes</td><td>User-isolated score and activity summary.</td></tr>
+      <tr><td><code>POST /api/assessments</code></td><td>Yes</td><td>Retrieve evidence, generate questions, and persist assessment.</td></tr>
+      <tr><td><code>GET /api/assessments/{id}</code></td><td>Yes</td><td>Read an owned in-progress assessment without answer key.</td></tr>
+      <tr><td><code>POST /api/assessments/{id}/submit</code></td><td>Yes</td><td>Score and persist full learner analytics.</td></tr>
+      <tr><td><code>GET /api/assessments/history</code></td><td>Yes</td><td>List owned assessment attempts.</td></tr>
+      <tr><td><code>GET /api/results/latest</code></td><td>Yes</td><td>Return latest completed result and question review.</td></tr>
+      <tr><td><code>GET /api/results/{id}</code></td><td>Yes</td><td>Return one owned completed result.</td></tr>
+      <tr><td><code>GET /api/weak-areas/latest</code></td><td>Yes</td><td>Latest weak-area analysis.</td></tr>
+      <tr><td><code>GET /api/recommendations/latest</code></td><td>Yes</td><td>Latest official-source recommendations.</td></tr>
+      <tr><td><code>GET /api/study-plan/latest</code></td><td>Yes</td><td>Latest personalized study plan.</td></tr>
+      <tr><td><code>GET /api/readiness/latest</code></td><td>Yes</td><td>Latest deterministic readiness result.</td></tr>
+      <tr><td><code>GET /api/bookmarks</code></td><td>Yes</td><td>List current user's bookmarks.</td></tr>
+      <tr><td><code>POST /api/bookmarks</code></td><td>Yes</td><td>Save an owned assessment question.</td></tr>
+      <tr><td><code>DELETE /api/bookmarks/{id}</code></td><td>Yes</td><td>Delete an owned bookmark.</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="page page-break" id="appendix-c">
+    <p class="section-label">Appendix C</p><h2>Environment configuration</h2><div class="rule"></div>
+    <table><thead><tr><th>Variable</th><th>Purpose</th><th>Example</th></tr></thead><tbody>
+      <tr><td><code>OPENAI_API_KEY</code></td><td>Secret used for embeddings and live generation.</td><td><code>your_real_key_here</code></td></tr>
+      <tr><td><code>OPENAI_EMBEDDING_MODEL</code></td><td>Embedding model used to build and query FAISS.</td><td><code>text-embedding-3-small</code></td></tr>
+      <tr><td><code>OPENAI_GENERATION_MODEL</code></td><td>Model used by Structured Outputs and semantic review.</td><td><code>gpt-5-mini</code></td></tr>
+      <tr><td><code>READINESS_READY_THRESHOLD</code></td><td>Minimum score for Ready.</td><td><code>80</code></td></tr>
+      <tr><td><code>READINESS_NEARLY_READY_THRESHOLD</code></td><td>Minimum score for Nearly Ready.</td><td><code>60</code></td></tr>
+      <tr><td><code>APP_ENVIRONMENT</code></td><td>Application mode and production-secret enforcement.</td><td><code>development</code></td></tr>
+      <tr><td><code>APP_SECRET_KEY</code></td><td>JWT signature secret.</td><td><code>replace-with-long-random-secret</code></td></tr>
+      <tr><td><code>ACCESS_TOKEN_EXPIRE_MINUTES</code></td><td>Bearer-token lifetime.</td><td><code>1440</code></td></tr>
+      <tr><td><code>DATABASE_URL</code></td><td>SQLAlchemy application database connection.</td><td><code>sqlite:///./data/assistant.db</code></td></tr>
+      <tr><td><code>CORS_ORIGINS</code></td><td>Allowed direct frontend origins when not using same-origin proxy.</td><td><code>http://127.0.0.1:5173</code></td></tr>
+    </tbody></table>
+    <div class="note warning"><strong>Secret handling:</strong> place real values in the root <code>.env</code>, never in <code>.env.example</code>. Do not commit, screenshot, email, or include real API keys in this document.</div>
+    <div class="footer-note">AI Certification Exam Assistant — Technical Documentation & Team Collaboration Guide — Version 1.0</div>
+  </section>
+</main>
+</body>
+</html>

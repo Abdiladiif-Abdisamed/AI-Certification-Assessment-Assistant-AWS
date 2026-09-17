@@ -1,0 +1,239 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1130" viewBox="0 0 1600 1130" font-family="Inter, 'Segoe UI', Roboto, system-ui, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#94A3B8"/>
+    </marker>
+    <marker id="arrowV" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#C4B5FD"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1130" fill="#FCFCFD"/>
+
+  <!-- ── Header ─────────────────────────────────────────────────────────── -->
+  <text x="48" y="52" font-size="27" font-weight="700" fill="#0F172A">AI Certification Assistant — Architecture</text>
+  <text x="48" y="80" font-size="14" fill="#64748B">Grounded practice-question generation from official exam-guide content · v0.3.0</text>
+
+  <!-- Legend -->
+  <rect x="1092" y="30" width="16" height="16" rx="4" fill="#F3F0FF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="1116" y="43" font-size="12.5" fill="#475569">OpenAI call</text>
+  <rect x="1216" y="30" width="16" height="16" rx="4" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="1240" y="43" font-size="12.5" fill="#475569">Deterministic — no model</text>
+  <rect x="1442" y="30" width="16" height="16" rx="4" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+  <text x="1466" y="43" font-size="12.5" fill="#475569">Refusal</text>
+  <line x1="1092" y1="62" x2="1552" y2="62" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="1552" y="82" font-size="12" fill="#94A3B8" text-anchor="end">Colour marks whether a language model is involved at all.</text>
+
+  <!-- ── Band A · build time ────────────────────────────────────────────── -->
+  <text x="48" y="128" font-size="11.5" font-weight="700" fill="#94A3B8" letter-spacing="1.4">1 · BUILD TIME — RUN ONCE VIA cert-rag prepare / embed</text>
+
+  <rect x="48" y="142" width="250" height="86" rx="10" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="68" y="170" font-size="14" font-weight="600" fill="#0F172A">certifications/*.json</text>
+  <text x="68" y="191" font-size="11.5" fill="#64748B">4 exam-guide corpora, versioned</text>
+  <text x="68" y="209" font-size="11.5" fill="#64748B">in the repository</text>
+
+  <rect x="361" y="142" width="250" height="86" rx="10" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="381" y="170" font-size="14" font-weight="600" fill="#0F172A">Ingestion + cleaning</text>
+  <text x="381" y="191" font-size="11.5" fill="#64748B">duplicates, control characters</text>
+  <text x="381" y="209" font-size="11.5" fill="#64748B">and empty records removed</text>
+
+  <rect x="674" y="142" width="250" height="86" rx="10" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="694" y="170" font-size="14" font-weight="600" fill="#0F172A">Topic-aware chunks</text>
+  <text x="694" y="191" font-size="11.5" fill="#64748B">1 exam task = 1 chunk · 38 total</text>
+  <text x="694" y="209" font-size="11.5" fill="#64748B">split only above 3,500 chars</text>
+
+  <rect x="987" y="142" width="250" height="86" rx="10" fill="#F3F0FF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="1007" y="170" font-size="14" font-weight="600" fill="#0F172A">OpenAI embeddings</text>
+  <text x="1007" y="191" font-size="11.5" fill="#64748B">text-embedding-3-small</text>
+  <text x="1007" y="209" font-size="11.5" fill="#64748B">1536-d, L2-normalised</text>
+
+  <rect x="1300" y="142" width="250" height="86" rx="10" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="1320" y="170" font-size="14" font-weight="600" fill="#0F172A">FAISS IndexFlatIP</text>
+  <text x="1320" y="191" font-size="11.5" fill="#64748B">1 global index and one index</text>
+  <text x="1320" y="209" font-size="11.5" fill="#64748B">per certification</text>
+
+  <line x1="304" y1="185" x2="355" y2="185" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="617" y1="185" x2="668" y2="185" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="930" y1="185" x2="981" y2="185" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="1243" y1="185" x2="1294" y2="185" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <!-- ── Band B · request path ──────────────────────────────────────────── -->
+  <text x="48" y="274" font-size="11.5" font-weight="700" fill="#94A3B8" letter-spacing="1.4">2 · GENERATING AN ASSESSMENT — THE REQUEST PATH</text>
+
+  <rect x="48" y="288" width="250" height="86" rx="10" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="68" y="316" font-size="14" font-weight="600" fill="#0F172A">React dashboard</text>
+  <text x="68" y="337" font-size="11.5" fill="#64748B">learner picks certification,</text>
+  <text x="68" y="355" font-size="11.5" fill="#64748B">difficulty and question count</text>
+
+  <rect x="361" y="288" width="250" height="86" rx="10" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="381" y="316" font-size="14" font-weight="600" fill="#0F172A">POST /api/assessments</text>
+  <text x="381" y="337" font-size="11.5" fill="#64748B">FastAPI · JWT bearer token</text>
+  <text x="381" y="355" font-size="11.5" fill="#64748B">owner-scoped from here on</text>
+
+  <rect x="674" y="288" width="250" height="86" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+  <text x="694" y="316" font-size="14" font-weight="600" fill="#0F172A">Corpus readiness gate</text>
+  <text x="694" y="337" font-size="11.5" fill="#64748B">detailed content + source URL?</text>
+  <text x="694" y="355" font-size="11.5" fill="#B91C1C">if not → 422, no model call made</text>
+
+  <rect x="987" y="288" width="250" height="86" rx="10" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="1007" y="316" font-size="14" font-weight="600" fill="#0F172A">Retrieval</text>
+  <text x="1007" y="337" font-size="11.5" fill="#64748B">the certification index is chosen</text>
+  <text x="1007" y="355" font-size="11.5" fill="#64748B">BEFORE the query runs</text>
+
+  <rect x="1300" y="288" width="250" height="86" rx="10" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="1320" y="316" font-size="14" font-weight="600" fill="#0F172A">Grounding context</text>
+  <text x="1320" y="337" font-size="11.5" fill="#64748B">up to 15 chunks, cached per</text>
+  <text x="1320" y="355" font-size="11.5" fill="#64748B">query and warmed at startup</text>
+
+  <line x1="304" y1="331" x2="355" y2="331" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="617" y1="331" x2="668" y2="331" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="930" y1="331" x2="981" y2="331" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="1243" y1="331" x2="1294" y2="331" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <path d="M 1425 380 L 1425 402" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- ── Band C · the engine ────────────────────────────────────────────── -->
+  <rect x="48" y="408" width="1504" height="398" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="72" y="440" font-size="11.5" font-weight="700" fill="#94A3B8" letter-spacing="1.4">3 · GENERATION ENGINE — src/certification_assistant/ai/engine.py</text>
+
+  <!-- fan-out -->
+  <rect x="72" y="458" width="196" height="72" rx="9" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="88" y="486" font-size="13" font-weight="600" fill="#0F172A">Context, partitioned</text>
+  <text x="88" y="506" font-size="11" fill="#64748B">topics dealt round-robin,</text>
+  <text x="88" y="521" font-size="11" fill="#64748B">each shard sees only its own</text>
+
+  <line x1="274" y1="494" x2="314" y2="494" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <rect x="320" y="458" width="180" height="72" rx="9" fill="#F3F0FF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="336" y="484" font-size="13" font-weight="600" fill="#5B21B6">Shard · Q1</text>
+  <text x="336" y="504" font-size="11" fill="#6D28D9">1 question</text>
+  <text x="336" y="519" font-size="11" fill="#6D28D9">gpt-5-mini</text>
+
+  <rect x="516" y="458" width="180" height="72" rx="9" fill="#F3F0FF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="532" y="484" font-size="13" font-weight="600" fill="#5B21B6">Shard · Q2</text>
+  <text x="532" y="504" font-size="11" fill="#6D28D9">1 question</text>
+  <text x="532" y="519" font-size="11" fill="#6D28D9">gpt-5-mini</text>
+
+  <rect x="712" y="458" width="180" height="72" rx="9" fill="#F3F0FF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="728" y="484" font-size="13" font-weight="600" fill="#5B21B6">Shard · Q3 … QN</text>
+  <text x="728" y="504" font-size="11" fill="#6D28D9">one call per question,</text>
+  <text x="728" y="519" font-size="11" fill="#6D28D9">all concurrent</text>
+
+  <rect x="908" y="458" width="180" height="72" rx="9" fill="#FAF5FF" stroke="#DDD6FE" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="924" y="484" font-size="13" font-weight="600" fill="#7C3AED">Spare shard</text>
+  <text x="924" y="504" font-size="11" fill="#8B5CF6">launched alongside,</text>
+  <text x="924" y="519" font-size="11" fill="#8B5CF6">not counted on</text>
+
+  <rect x="1104" y="458" width="180" height="72" rx="9" fill="#FAF5FF" stroke="#DDD6FE" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="1120" y="484" font-size="13" font-weight="600" fill="#7C3AED">Spare shard</text>
+  <text x="1120" y="504" font-size="11" fill="#8B5CF6">over-provision 1.0,</text>
+  <text x="1120" y="519" font-size="11" fill="#8B5CF6">floor of four</text>
+
+  <rect x="1300" y="458" width="228" height="72" rx="9" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="1316" y="482" font-size="12" font-weight="600" fill="#475569">Why spares?</text>
+  <text x="1316" y="502" font-size="11" fill="#64748B">A failing shard used to retry in</text>
+  <text x="1316" y="518" font-size="11" fill="#64748B">sequence and dominate the request.</text>
+
+  <path d="M 208 536 L 208 560" stroke="#C4B5FD" stroke-width="1.6" marker-end="url(#arrowV)" fill="none"/>
+  <path d="M 504 536 L 504 560" stroke="#C4B5FD" stroke-width="1.6" marker-end="url(#arrowV)" fill="none"/>
+  <path d="M 800 536 L 800 560" stroke="#C4B5FD" stroke-width="1.6" marker-end="url(#arrowV)" fill="none"/>
+  <path d="M 1096 536 L 1096 560" stroke="#C4B5FD" stroke-width="1.6" marker-end="url(#arrowV)" fill="none"/>
+  <path d="M 1392 536 L 1392 560" stroke="#C4B5FD" stroke-width="1.6" marker-end="url(#arrowV)" fill="none"/>
+
+  <!-- gates -->
+  <text x="72" y="556" font-size="11.5" font-weight="700" fill="#B45309" letter-spacing="1.1">EVERY QUESTION MUST CLEAR ALL FIVE GATES</text>
+
+  <rect x="72" y="566" width="272" height="88" rx="9" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.5"/>
+  <text x="90" y="592" font-size="13" font-weight="700" fill="#92400E">1 · Schema</text>
+  <text x="90" y="613" font-size="11" fill="#78350F">strict Pydantic, extra fields banned</text>
+  <text x="90" y="629" font-size="11" fill="#78350F">exactly four distinct options</text>
+  <text x="90" y="645" font-size="11" fill="#78350F">practice_only = true (literal)</text>
+
+  <rect x="368" y="566" width="272" height="88" rx="9" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.5"/>
+  <text x="386" y="592" font-size="13" font-weight="700" fill="#92400E">2 · Provenance</text>
+  <text x="386" y="613" font-size="11" fill="#78350F">only chunk IDs and URLs that were</text>
+  <text x="386" y="629" font-size="11" fill="#78350F">actually retrieved; the question's</text>
+  <text x="386" y="645" font-size="11" fill="#78350F">domain and topic must match them</text>
+
+  <rect x="664" y="566" width="272" height="88" rx="9" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.5"/>
+  <text x="682" y="592" font-size="13" font-weight="700" fill="#92400E">3 · Lexical grounding</text>
+  <text x="682" y="613" font-size="11" fill="#78350F">every option verbatim in context or</text>
+  <text x="682" y="629" font-size="11" fill="#78350F">80% token overlap — distractors</text>
+  <text x="682" y="645" font-size="11" fill="#78350F">included, not just the right answer</text>
+
+  <rect x="960" y="566" width="272" height="88" rx="9" fill="#F3F0FF" stroke="#C4B5FD" stroke-width="1.5"/>
+  <text x="978" y="592" font-size="13" font-weight="700" fill="#5B21B6">4 · Semantic audit</text>
+  <text x="978" y="613" font-size="11" fill="#6D28D9">a second model call, prompted as a</text>
+  <text x="978" y="629" font-size="11" fill="#6D28D9">closed-book auditor, rejecting</text>
+  <text x="978" y="645" font-size="11" fill="#6D28D9">relationships the source never states</text>
+
+  <rect x="1256" y="566" width="272" height="88" rx="9" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.5"/>
+  <text x="1274" y="592" font-size="13" font-weight="700" fill="#92400E">5 · Batch integrity</text>
+  <text x="1274" y="613" font-size="11" fill="#78350F">exact requested count</text>
+  <text x="1274" y="629" font-size="11" fill="#78350F">no duplicate question text</text>
+  <text x="1274" y="645" font-size="11" fill="#78350F">requested certification + difficulty</text>
+
+  <path d="M 208 660 L 208 682" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)" fill="none"/>
+  <path d="M 1330 660 L 1330 682" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- outcomes -->
+  <rect x="72" y="688" width="1000" height="94" rx="9" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="92" y="714" font-size="13.5" font-weight="700" fill="#065F46">Accepted</text>
+  <text x="92" y="737" font-size="11.5" fill="#047857">The first N questions to clear every gate form the batch; the remaining shards are abandoned mid-flight.</text>
+  <text x="92" y="756" font-size="11.5" fill="#047857">Because the winners are simply the fastest to pass, a shard that fails costs no extra wall-clock time.</text>
+  <text x="92" y="775" font-size="11.5" fill="#047857">Measured on a 10-question AWS batch: 496s as one call, 11–15s as sharded, identical validation.</text>
+
+  <rect x="1088" y="688" width="440" height="94" rx="9" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+  <text x="1108" y="714" font-size="13.5" font-weight="700" fill="#991B1B">Rejected</text>
+  <text x="1108" y="737" font-size="11.5" fill="#B91C1C">The failure reason is fed back into a</text>
+  <text x="1108" y="756" font-size="11.5" fill="#B91C1C">regeneration prompt. Still unsupported → 502.</text>
+  <text x="1108" y="775" font-size="11.5" fill="#B91C1C">A partial batch is never returned.</text>
+
+  <!-- ── Band D · submit and score ──────────────────────────────────────── -->
+  <text x="48" y="848" font-size="11.5" font-weight="700" fill="#94A3B8" letter-spacing="1.4">4 · SUBMIT AND SCORE — NO LANGUAGE MODEL TOUCHES ANY OF THIS</text>
+
+  <rect x="48" y="862" width="250" height="90" rx="10" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="68" y="890" font-size="13.5" font-weight="600" fill="#0F172A">POST /{id}/submit</text>
+  <text x="68" y="911" font-size="11.5" fill="#64748B">answers only; unknown</text>
+  <text x="68" y="929" font-size="11.5" fill="#64748B">question IDs are rejected</text>
+
+  <rect x="361" y="862" width="250" height="90" rx="10" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="381" y="890" font-size="13.5" font-weight="600" fill="#0F172A">evaluate_assessment</text>
+  <text x="381" y="911" font-size="11.5" fill="#64748B">compared to the server-side</text>
+  <text x="381" y="929" font-size="11.5" fill="#64748B">key; unanswered = incorrect</text>
+
+  <rect x="674" y="862" width="250" height="90" rx="10" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="694" y="890" font-size="13.5" font-weight="600" fill="#0F172A">detect_weak_areas</text>
+  <text x="694" y="911" font-size="11.5" fill="#64748B">below 80% needs review</text>
+  <text x="694" y="929" font-size="11.5" fill="#64748B">below 50% is high priority</text>
+
+  <rect x="987" y="862" width="250" height="90" rx="10" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="1007" y="890" font-size="13.5" font-weight="600" fill="#0F172A">Plan + recommendations</text>
+  <text x="1007" y="911" font-size="11.5" fill="#64748B">allowlisted to weak topics</text>
+  <text x="1007" y="929" font-size="11.5" fill="#64748B">and official URLs only</text>
+
+  <rect x="1300" y="862" width="250" height="90" rx="10" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.5"/>
+  <text x="1320" y="890" font-size="13.5" font-weight="600" fill="#0F172A">calculate_readiness</text>
+  <text x="1320" y="911" font-size="11.5" fill="#64748B">80+ Ready · 60+ Nearly Ready</text>
+  <text x="1320" y="929" font-size="11.5" fill="#64748B">otherwise Needs Improvement</text>
+
+  <line x1="304" y1="907" x2="355" y2="907" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="617" y1="907" x2="668" y2="907" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="930" y1="907" x2="981" y2="907" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="1243" y1="907" x2="1294" y2="907" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <!-- ── Invariants ─────────────────────────────────────────────────────── -->
+  <rect x="48" y="990" width="740" height="76" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <rect x="48" y="990" width="4" height="76" rx="2" fill="#0F172A"/>
+  <text x="72" y="1016" font-size="13" font-weight="700" fill="#0F172A">The model cannot change a result</text>
+  <text x="72" y="1037" font-size="11.5" fill="#475569">It writes question text and optional prose. Scoring, weak areas and readiness</text>
+  <text x="72" y="1055" font-size="11.5" fill="#475569">are ordinary Python with configurable thresholds.</text>
+
+  <rect x="812" y="990" width="740" height="76" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <rect x="812" y="990" width="4" height="76" rx="2" fill="#0F172A"/>
+  <text x="836" y="1016" font-size="13" font-weight="700" fill="#0F172A">The answer key never leaves the server until submit</text>
+  <text x="836" y="1037" font-size="11.5" fill="#475569">SQLite holds users, assessments (questions, answers and derived analytics as</text>
+  <text x="836" y="1055" font-size="11.5" fill="#475569">JSON) and bookmarks. The exam payload omits the key and the explanation.</text>
+
+  <text x="48" y="1098" font-size="11" fill="#94A3B8">FastAPI · SQLAlchemy 2.0 · SQLite · React 19 + Vite · FAISS · OpenAI Responses API with Structured Outputs</text>
+  <text x="1552" y="1098" font-size="11" fill="#94A3B8" text-anchor="end">36 automated tests · offline suite uses injected fake clients</text>
+</svg>

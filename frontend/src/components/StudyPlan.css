@@ -1,0 +1,419 @@
+/* src/components/StudyPlan.css
+   Plan banner + daily milestones. Flat surfaces, one green accent. */
+
+.study-plan-page {
+  gap: 24px;
+}
+
+.sp-content-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ============================================================
+   Plan banner
+   ============================================================ */
+
+.sp-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 26px;
+  border: 1px solid var(--primary-border);
+  border-radius: var(--radius-xl);
+  background: var(--primary-soft);
+  color: var(--text);
+}
+
+.sp-banner-info {
+  min-width: 0;
+}
+
+.sp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border: 1px solid var(--primary-border);
+  border-radius: var(--radius-xs);
+  background: var(--surface-1);
+  color: var(--primary-soft-fg);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-transform: none;
+}
+
+.sp-badge svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 1.75;
+}
+
+.sp-banner-info h2 {
+  margin: 12px 0 6px;
+  color: var(--text-strong);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.sp-banner-info p {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.sp-primary-btn {
+  flex: 0 0 auto;
+  min-height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--primary-fg);
+  background: var(--primary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 140ms ease;
+}
+
+.sp-primary-btn:hover {
+  background: var(--primary-hover);
+}
+
+/* Mode switch (kept for parity with existing markup) */
+.sp-mode-switch {
+  display: inline-flex;
+  gap: 2px;
+  width: fit-content;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+}
+
+.sp-tab {
+  min-height: 28px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.sp-tab.active {
+  background: var(--surface-1);
+  color: var(--text-strong);
+  box-shadow: var(--shadow-xs);
+  font-weight: 600;
+}
+
+/* ============================================================
+   Daily milestones
+   ============================================================ */
+
+.schedule-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 22px 22px;
+}
+
+.schedule-container h2 {
+  margin-bottom: 16px;
+}
+
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+}
+
+.schedule-item.completed {
+  border-color: var(--success-border);
+  background: var(--success-soft);
+}
+
+.schedule-item.in-progress {
+  border-color: var(--primary-border);
+  background: var(--primary-soft);
+}
+
+.sch-status {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  margin-top: 1px;
+}
+
+.sch-status svg {
+  width: 17px;
+  height: 17px;
+  color: var(--text-subtle);
+  stroke-width: 1.6;
+}
+
+.sch-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sch-info h3 {
+  margin: 0 0 8px;
+  color: var(--text-strong);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.sch-info ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 17px;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.sch-info p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
+
+.study-resources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.study-resources a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 0;
+  color: var(--primary);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.study-resources svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 1.75;
+}
+
+.sch-tag {
+  flex: 0 0 auto;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--neutral-soft);
+  color: var(--neutral-soft-fg);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.sch-tag.done {
+  border-color: var(--success-border);
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.sch-tag.current {
+  border-color: var(--primary-border);
+  background: var(--primary-soft);
+  color: var(--primary-soft-fg);
+  font-weight: 600;
+}
+
+.sch-tag.pending-tag {
+  border-color: var(--border);
+  background: var(--neutral-soft);
+  color: var(--neutral-soft-fg);
+}
+
+/* ============================================================
+   Roadmap / goals (existing markup kept aligned to the system)
+   ============================================================ */
+
+.roadmap-arena,
+.goals-arena {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface-1);
+}
+
+.roadmap-arena h3,
+.goals-arena h3 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.roadmap-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+}
+
+.roadmap-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.pct-badge {
+  padding: 1px 7px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--neutral-soft);
+  color: var(--neutral-soft-fg);
+  font-weight: 500;
+}
+
+.pct-badge.high { border-color: var(--success-border); background: var(--success-soft); color: var(--success); }
+.pct-badge.mid { border-color: var(--warning-border); background: var(--warning-soft); color: var(--warning); }
+.pct-badge.low { border-color: var(--danger-border); background: var(--danger-soft); color: var(--danger); }
+
+.roadmap-card h4 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.study-plan-page .domain-track {
+  height: 4px;
+  border-radius: 99px;
+  background: var(--data-track);
+  overflow: hidden;
+}
+
+.study-plan-page .domain-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: var(--data-strong);
+}
+
+.study-plan-page .domain-fill.yellow { background: var(--data-mid); }
+.study-plan-page .domain-fill.red { background: var(--data-weak); }
+
+.goal-form-box {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 400px;
+}
+
+.form-group-plan {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group-plan label {
+  color: var(--text);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.form-group-plan select,
+.form-group-plan input {
+  min-height: 38px;
+  padding: 8px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  outline: 0;
+  color: var(--text-strong);
+  background: var(--surface-1);
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.form-group-plan select:focus,
+.form-group-plan input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-ring);
+}
+
+.save-goal-btn {
+  min-height: 36px;
+  margin-top: 4px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--primary-fg);
+  background: var(--primary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 140ms ease;
+}
+
+.save-goal-btn:hover {
+  background: var(--primary-hover);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 820px) {
+  .roadmap-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .sp-banner { flex-direction: column; align-items: flex-start; gap: 20px; padding: 22px; }
+  .sp-primary-btn { width: 100%; }
+  .schedule-item { flex-wrap: wrap; }
+  .sch-tag { margin-left: auto; }
+}

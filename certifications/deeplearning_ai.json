@@ -1,0 +1,32 @@
+{
+  "certification": {
+    "id": "deeplearning-ai-programs",
+    "name": "DeepLearning.AI Programs",
+    "provider": "DeepLearning.AI",
+    "status": "active"
+  },
+  "official_sources": [
+    "https://www.deeplearning.ai/",
+    "https://www.deeplearning.ai/specializations/generative-ai-for-software-development"
+  ],
+  "domains": [
+    {
+      "name": "Generative AI",
+      "topics": [
+        "generative AI applications",
+        "LLMs",
+        "prompting",
+        "AI software development"
+      ]
+    },
+    {
+      "name": "Deep Learning",
+      "topics": [
+        "neural networks",
+        "computer vision",
+        "generative models"
+      ]
+    }
+  ],
+  "note": "DeepLearning.AI offers multiple courses/professional certificates rather than one universal certification exam. Select a specific certificate before building an exam-oriented corpus."
+}

@@ -1,0 +1,406 @@
+{
+  "certification": {
+    "id": "aif-c01",
+    "name": "AWS Certified AI Practitioner",
+    "provider": "AWS",
+    "exam_code": "AIF-C01",
+    "status": "active",
+    "corpus_status": "production_candidate",
+    "last_verified": "2026-08-27"
+  },
+  "content_policy": {
+    "source_of_truth": "Official AWS Certified AI Practitioner exam guide",
+    "content_form": "Faithful paraphrase of the official domain task statements and objectives",
+    "practice_questions_only": true,
+    "real_exam_questions_included": false
+  },
+  "official_sources": [
+    {
+      "source_title": "AWS Certified AI Practitioner (AIF-C01) Exam Guide",
+      "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01.html",
+      "source_type": "official_exam_guide"
+    },
+    {
+      "source_title": "AIF-C01 In-Scope AWS Services",
+      "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/aif-01-in-scope-services.html",
+      "source_type": "official_exam_guide"
+    }
+  ],
+  "domains": [
+    {
+      "id": "domain-1",
+      "name": "Fundamentals of AI and ML",
+      "weight": "20%",
+      "sources": [
+        {
+          "source_title": "AIF-C01 Content Domain 1: Fundamentals of AI and ML",
+          "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+          "source_type": "official_exam_guide"
+        }
+      ],
+      "topics": [
+        {
+          "id": "task-1.1",
+          "name": "Explain basic AI concepts and terminologies",
+          "subtopics": [
+            "AI, ML, deep learning, GenAI, and agentic AI",
+            "models, algorithms, training, inference, bias, fairness, and fit",
+            "batch, real-time, asynchronous, and serverless inference",
+            "labeled, unlabeled, structured, unstructured, tabular, time-series, image, and text data",
+            "supervised, unsupervised, and reinforcement learning"
+          ],
+          "content": {
+            "scope_summary": "Candidates distinguish AI, machine learning, deep learning, generative AI, and agentic AI, and understand how models, algorithms, training, inference, bias, fairness, and fit relate. The scope includes common inference modes, data forms, and supervised, unsupervised, and reinforcement learning.",
+            "question_focus": "Definitions, comparisons, and selection of the correct term for a described learning, data, or inference scenario."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 1, Task 1.1",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        },
+        {
+          "id": "task-1.2",
+          "name": "Identify practical use cases for AI",
+          "subtopics": [
+            "AI value, scalability, automation, and decision support",
+            "cost-benefit and cases where prediction is inappropriate",
+            "regression, classification, and clustering",
+            "computer vision, NLP, speech, recommendations, fraud detection, and forecasting",
+            "AWS managed AI services",
+            "traditional ML compared with foundation models"
+          ],
+          "content": {
+            "scope_summary": "Candidates recognize business situations where AI adds value and situations where cost, constraints, or the need for a guaranteed outcome make AI unsuitable. They map regression, classification, clustering, foundation models, and managed AWS AI services to appropriate use cases while considering regulation, explainability, and operations.",
+            "question_focus": "Business-scenario technique selection and identification of suitable managed AWS capabilities."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 1, Task 1.2",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        },
+        {
+          "id": "task-1.3",
+          "name": "Describe the AI/ML development lifecycle",
+          "subtopics": [
+            "AI/ML pipeline stages and components",
+            "open pre-trained and custom model sources",
+            "managed and self-hosted production APIs",
+            "AWS services across the lifecycle",
+            "MLOps, monitoring, retraining, repeatability, and production readiness",
+            "model and business evaluation metrics"
+          ],
+          "content": {
+            "scope_summary": "The lifecycle covers pipeline components, model sourcing, production access patterns, and matching AWS services to lifecycle stages. MLOps emphasizes experimentation, repeatable and scalable processes, monitoring, retraining, technical-debt management, and production readiness. Evaluation combines model metrics such as accuracy, precision, recall, and F1 with business outcomes such as cost, feedback, and ROI.",
+            "question_focus": "Lifecycle ordering, service-stage matching, MLOps responsibilities, and choosing an evaluation metric."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 1, Task 1.3",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain1.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "domain-2",
+      "name": "Fundamentals of GenAI",
+      "weight": "24%",
+      "sources": [
+        {
+          "source_title": "AIF-C01 Content Domain 2: Fundamentals of GenAI",
+          "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+          "source_type": "official_exam_guide"
+        }
+      ],
+      "topics": [
+        {
+          "id": "task-2.1",
+          "name": "Explain the basic concepts of generative AI",
+          "subtopics": [
+            "tokens, chunks, embeddings, vectors, prompts, transformers, LLMs, and foundation models",
+            "multimodal and diffusion models",
+            "GenAI application use cases",
+            "foundation-model lifecycle",
+            "token pricing and context engineering",
+            "agentic AI, MCP, memory, tools, communication, and orchestration"
+          ],
+          "content": {
+            "scope_summary": "The scope connects tokens, chunking, embeddings, vectors, prompts, transformer-based LLMs, foundation models, multimodal models, and diffusion models. Candidates understand common GenAI uses, the foundation-model lifecycle, token-based inference cost, and context engineering. Agentic concepts include tools, memory, orchestration, multi-agent communication, and MCP connections to external systems.",
+            "question_focus": "Concept identification, lifecycle stages, cost effects, and agent-component responsibilities."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 2, Task 2.1",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        },
+        {
+          "id": "task-2.2",
+          "name": "Understand the capabilities and limitations of GenAI for solving business problems",
+          "subtopics": [
+            "adaptability, responsiveness, conversation, and content generation",
+            "hallucination, interpretability, inaccuracy, and nondeterminism",
+            "model capability, constraints, compliance, cost, latency, and complexity",
+            "business value and outcome metrics"
+          ],
+          "content": {
+            "scope_summary": "GenAI can provide adaptable, responsive, conversational content generation, but it can also hallucinate, behave nondeterministically, be inaccurate, and be difficult to interpret. Model selection balances capabilities and performance against constraints, compliance, cost, latency, and complexity. Business evaluation uses outcomes such as ROI, efficiency, conversion, accuracy, and customer value.",
+            "question_focus": "Tradeoff analysis, model-selection constraints, and selecting a business metric."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 2, Task 2.2",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        },
+        {
+          "id": "task-2.3",
+          "name": "Describe AWS infrastructure and technologies for building GenAI applications",
+          "subtopics": [
+            "Amazon Bedrock, SageMaker AI, SageMaker JumpStart, Amazon Quick, Kiro, Strands Agents, and Bedrock AgentCore",
+            "accessibility, efficiency, cost effectiveness, and speed to market",
+            "security, compliance, responsibility, and safety",
+            "availability, redundancy, performance, regions, tokens, throughput, and custom-model tradeoffs"
+          ],
+          "content": {
+            "scope_summary": "Candidates identify AWS services used to develop GenAI applications and explain how managed capabilities can lower barriers, improve efficiency, accelerate delivery, and support business outcomes. AWS infrastructure considerations include security, compliance, responsibility, and safety. Cost tradeoffs involve responsiveness, availability, redundancy, performance, regional coverage, tokens, provisioned throughput, and custom models.",
+            "question_focus": "AWS service identification and architecture or cost tradeoff selection."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 2, Task 2.3",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain2.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "domain-3",
+      "name": "Applications of Foundation Models",
+      "weight": "28%",
+      "sources": [
+        {
+          "source_title": "AIF-C01 Content Domain 3: Applications of Foundation Models",
+          "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+          "source_type": "official_exam_guide"
+        }
+      ],
+      "topics": [
+        {
+          "id": "task-3.1",
+          "name": "Describe design considerations for applications that use foundation models",
+          "subtopics": [
+            "foundation-model selection criteria and inference parameters",
+            "RAG and Amazon Bedrock Knowledge Bases",
+            "AWS vector database options",
+            "customization cost tradeoffs",
+            "AI agents and business applications"
+          ],
+          "content": {
+            "scope_summary": "Foundation-model selection considers cost, modality, latency, languages, size, complexity, customization, context length, output length, and prompt caching. Temperature and length settings affect responses. RAG grounds applications with retrieved knowledge; AWS vector options include OpenSearch Service, Aurora, Neptune, and RDS for PostgreSQL. Customization choices include pre-training, fine-tuning, in-context learning, RAG, and distillation.",
+            "question_focus": "Architecture choice, RAG/vector storage, inference settings, and customization tradeoffs."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 3, Task 3.1",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        },
+        {
+          "id": "task-3.2",
+          "name": "Choose effective prompt engineering techniques",
+          "subtopics": [
+            "context, instructions, and negative prompts",
+            "zero-shot, single-shot, few-shot, chain-of-thought, and templates",
+            "specificity, concision, experimentation, guardrails, and response quality",
+            "prompt exposure, poisoning, hijacking, and jailbreaking",
+            "Amazon Bedrock Prompt Management"
+          ],
+          "content": {
+            "scope_summary": "Prompt engineering combines context, instructions, and constraints. Techniques include zero-shot, single-shot, few-shot, chain-of-thought, and reusable templates. Effective prompts are specific, concise, tested, versioned, and protected with suitable guardrails. Risks include prompt exposure, poisoning, hijacking, and jailbreaking; Amazon Bedrock Prompt Management supports prompt versioning and management.",
+            "question_focus": "Selecting a prompting technique, improving a prompt, managing versions, or identifying a prompt risk."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 3, Task 3.2",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        },
+        {
+          "id": "task-3.3",
+          "name": "Describe the training and fine-tuning process for foundation models",
+          "subtopics": [
+            "pre-training, fine-tuning, continuous pre-training, and distillation",
+            "instruction tuning, domain adaptation, and transfer learning",
+            "data curation, governance, size, labeling, representativeness, and RLHF"
+          ],
+          "content": {
+            "scope_summary": "Foundation-model development can use pre-training, fine-tuning, continuous pre-training, and distillation. Fine-tuning approaches include instruction tuning, domain adaptation, transfer learning, and continued training. Preparation requires governed, curated, sufficiently sized, labeled, and representative data; human feedback can be incorporated through RLHF.",
+            "question_focus": "Choosing a training method and identifying data-preparation requirements."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 3, Task 3.3",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        },
+        {
+          "id": "task-3.4",
+          "name": "Describe methods to evaluate foundation-model performance",
+          "subtopics": [
+            "human evaluation, benchmark data, and Amazon Bedrock Model Evaluation",
+            "ROUGE, BLEU, BERTScore, and LLM-as-a-judge",
+            "business objectives and application evaluation",
+            "task completion, satisfaction, and cost per interaction"
+          ],
+          "content": {
+            "scope_summary": "Foundation models can be evaluated with humans, benchmark datasets, and Amazon Bedrock Model Evaluation. Relevant measures include ROUGE, BLEU, BERTScore, and LLM-as-a-judge. Application evaluation also covers RAG, agents, and workflows, and must connect technical results to task completion, user satisfaction, productivity, engagement, and cost per interaction.",
+            "question_focus": "Selecting an evaluation approach or metric for a technical or business objective."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 3, Task 3.4",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain3.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "domain-4",
+      "name": "Guidelines for Responsible AI",
+      "weight": "14%",
+      "sources": [
+        {
+          "source_title": "AIF-C01 Content Domain 4: Guidelines for Responsible AI",
+          "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+          "source_type": "official_exam_guide"
+        }
+      ],
+      "topics": [
+        {
+          "id": "task-4.1",
+          "name": "Explain the development of responsible AI systems",
+          "subtopics": [
+            "bias, fairness, inclusivity, robustness, safety, and veracity",
+            "Amazon Bedrock Guardrails",
+            "sustainability and model selection",
+            "legal and customer risks",
+            "inclusive, diverse, curated, and balanced datasets",
+            "bias monitoring, subgroup analysis, human audits, and Amazon A2I"
+          ],
+          "content": {
+            "scope_summary": "Responsible AI considers bias, fairness, inclusivity, robustness, safety, truthfulness, sustainability, and legal or customer risks. Dataset quality depends on diversity, balance, inclusion, and curation. Bias and variance can cause demographic harm, inaccuracy, overfitting, or underfitting. Guardrails, label analysis, subgroup analysis, human audits, and Amazon A2I help detect or monitor problems.",
+            "question_focus": "Recognizing a responsible-AI risk, dataset issue, monitoring method, or guardrail use."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 4, Task 4.1",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        },
+        {
+          "id": "task-4.2",
+          "name": "Recognize the importance of transparent and explainable models",
+          "subtopics": [
+            "transparent, explainable, and opaque models",
+            "SageMaker Model Cards and Bedrock Model Evaluations",
+            "open models, data, and licensing",
+            "safety, interpretability, and performance tradeoffs",
+            "human-centered design and user feedback"
+          ],
+          "content": {
+            "scope_summary": "Candidates distinguish transparent or explainable models from opaque ones and understand the tradeoff between interpretability, safety, and performance. SageMaker Model Cards, Bedrock Model Evaluations, open model information, data documentation, and licensing can support transparency. Human-centered design includes user feedback and clarity about AI-assisted decisions.",
+            "question_focus": "Choosing a transparency tool or identifying an explainability and performance tradeoff."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 4, Task 4.2",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain4.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "domain-5",
+      "name": "Security, Compliance, and Governance for AI Solutions",
+      "weight": "14%",
+      "sources": [
+        {
+          "source_title": "AIF-C01 Content Domain 5: Security, Compliance, and Governance for AI Solutions",
+          "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+          "source_type": "official_exam_guide"
+        }
+      ],
+      "topics": [
+        {
+          "id": "task-5.1",
+          "name": "Explain methods to secure AI systems",
+          "subtopics": [
+            "IAM, encryption, Macie, PrivateLink, shared responsibility, AgentCore identity and policy, and Bedrock Guardrails",
+            "source citation, lineage, catalogs, and SageMaker Model Cards",
+            "data quality, privacy, access control, and integrity",
+            "prompt injection, leakage, filtering, validation, logging, and toxicity",
+            "RAG grounding, output validation, and confidence scoring"
+          ],
+          "content": {
+            "scope_summary": "AI security combines identity and access control, encryption, private connectivity, data discovery, shared responsibility, guardrails, and AgentCore identity or policy features. Secure data work requires quality, privacy, integrity, lineage, and controlled access. Application defenses address prompt injection, leakage, toxicity, validation, filtering, logging, and vulnerabilities. RAG grounding, validation, and confidence scoring can reduce hallucination risk.",
+            "question_focus": "Selecting a security control, protecting data, documenting provenance, or improving output grounding."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 5, Task 5.1",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        },
+        {
+          "id": "task-5.2",
+          "name": "Recognize governance and compliance regulations for AI systems",
+          "subtopics": [
+            "AWS Config, Inspector, Artifact, CloudTrail, and Trusted Advisor",
+            "data lifecycle, logging, residency, monitoring, observation, and retention",
+            "policies, review cadence, governance frameworks, transparency, and team training"
+          ],
+          "content": {
+            "scope_summary": "AWS Config, Inspector, Artifact, CloudTrail, and Trusted Advisor support governance or compliance activities. Data governance addresses lifecycle, residency, monitoring, observability, logging, and retention. Organizations follow policies, review schedules, review strategies, governance frameworks, transparency standards, and training requirements to maintain governance protocols.",
+            "question_focus": "Choosing a governance service, data-governance control, or organizational review process."
+          },
+          "sources": [
+            {
+              "source_title": "AIF-C01 Domain 5, Task 5.2",
+              "source_url": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01-domain5.html",
+              "source_type": "official_exam_guide"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

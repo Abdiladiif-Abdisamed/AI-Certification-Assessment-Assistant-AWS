@@ -1,0 +1,44 @@
+{
+  "certification": {
+    "id": "ibm-ai-engineering-professional-certificate-v2",
+    "name": "IBM AI Engineering Professional Certificate",
+    "provider": "IBM",
+    "status": "active"
+  },
+  "official_sources": [
+    "https://www.ibm.com/training/badge/ibm-ai-engineering-professional-certificate-v2"
+  ],
+  "domains": [
+    {
+      "name": "Machine Learning",
+      "topics": [
+        "regression",
+        "classification",
+        "clustering",
+        "recommender systems"
+      ]
+    },
+    {
+      "name": "Deep Learning",
+      "topics": [
+        "Keras",
+        "PyTorch",
+        "TensorFlow",
+        "neural networks"
+      ]
+    },
+    {
+      "name": "Computer Vision",
+      "topics": [
+        "computer vision and image processing"
+      ]
+    },
+    {
+      "name": "Big Data ML",
+      "topics": [
+        "Apache Spark"
+      ]
+    }
+  ],
+  "note": "This is a professional certificate program, not one single certification exam; detailed course content should be added from authorized materials."
+}

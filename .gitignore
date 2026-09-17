@@ -1,0 +1,13 @@
+.env
+.env.example
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.archive/
+.artifacts/
+.ipynb_checkpoints/
+data/*.db
+data/*.db-*
+frontend/.env
